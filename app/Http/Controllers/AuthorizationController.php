@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Gate;
 class AuthorizationController extends Controller
 {
     public function index(){
-        // Gate::allows('isAdmin') ? Response::allow() : abort(403);
-        // return "Authorization";
-        return "it's working";
+        Gate::allows('isAdmin') ? Response::allow() : abort(403);
+        return "Authorization";
+        // return "it's working";
         
     }
 }

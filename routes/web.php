@@ -23,10 +23,14 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home2', [App\Http\Controllers\HomeController::class, 'index2'])->name('home2');
 
-Route::get('/gate', [App\Http\Controllers\AuthorizationController::class, 'index'])->name('gate.index');
 // Route::get('/gate', [App\Http\Controllers\AuthorizationController::class, 'index'])->name('gate.index')->middleware('can:isUser');
-// Route::get('/gate', [App\Http\Controllers\AuthorizationController::class, 'index'])->name('gate.index'); //autrhorized throgh controller
+Route::get('/gate', [App\Http\Controllers\AuthorizationController::class, 'index'])->name('gate.index'); //autrhorized throgh controller
 
-// Route::get('/gate', function(){
-//     return "hi";
-// });
+
+Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('post.index'); 
+
+
+// Route::get('/posts/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show')->middleware('can:view,post'); 
+Route::get('/posts/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
+
+Route::get('/posts/delete/{post}', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.delete')->middleware('can:delete,post'); 

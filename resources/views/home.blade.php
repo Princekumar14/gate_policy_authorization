@@ -28,6 +28,10 @@
                         @can('isEditor')
                             <h4 class="text-center">This is for Editor</h4>
                         @endcan
+
+                        <h3>Post</h3>
+                        <a href="{{ route('post.index') }}" class="btn btn-success">See Posts</a>
+
                     </div>
                 </div>
             </div>
