@@ -1,6 +1,8 @@
 <?php
 
 // use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\RequirementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,3 +36,13 @@ Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->nam
 Route::get('/posts/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
 
 Route::get('/posts/delete/{post}', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.delete')->middleware('can:delete,post'); 
+
+
+// ----------------- csrf token start -----------------
+Route::get('/takecsrf',[RequirementController::class,'takecsrf']);
+Route::middleware(['csrfcor'])->group(function () {
+    Route::post('/addingdata',[RequirementController::class,'addRequirement']);
+});
+// ----------------- csrf token end -----------------
+
+Route::get('/allrequests',[RequirementController::class,'allrequests'])->name('customer.requirements');
