@@ -46,9 +46,39 @@ class RequirementController extends Controller
 
         return json_encode($data);
     }
+
     public function allrequests(Request $req)
     {
         $requirements = Requirement::get();
         return view('customer_requirements', compact('requirements'));
+    }
+
+
+    public function showRequest(Requirement $requirement)
+    {
+        if($requirement->status == 0){
+            $update_status = DB::table('requirements')
+            ->where('id', $requirement->id)
+            ->update(
+                [
+                    'status' => 1,
+                ]
+            );
+            if ($update_status) {
+                return view('show_customer_requirement')->with('requirement', $requirement);
+
+            } else {
+                echo "<h1>Something went Wrong.</h1>";
+
+            }
+
+        }else{
+            return view('show_customer_requirement')->with('requirement', $requirement);
+        }
+    }
+
+    public function addComment(Request $req)
+    {
+        return "hi";
     }
 }

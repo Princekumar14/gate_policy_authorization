@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('customer_message')->nullable();
             $table->string('requested_product_image');
             $table->string('page_info');
+            $table->string('staff_comment')->default('');
             $table->boolean('status')->default(0);
             $table->timestamp('requested_date');
         });

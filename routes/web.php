@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/india', function () {
+    return 'india';
+});
 
 Auth::routes();
 
@@ -46,3 +49,11 @@ Route::middleware(['csrfcor'])->group(function () {
 // ----------------- csrf token end -----------------
 
 Route::get('/allrequests',[RequirementController::class,'allrequests'])->name('customer.requirements');
+Route::controller(RequirementController::class)->group(function(){
+    Route::get('/allrequests/{requirement}', 'showRequest')->name('view.request');
+    Route::get('/addComment', 'addComment')->name('add.comment');
+});
+
+Route::get('/iframe', function () {
+    return view('iframe');
+});
