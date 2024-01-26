@@ -16,7 +16,7 @@ class CsrfCorsMiddleware
     public function handle($request, Closure $next): Response
     {
         return $next($request)
-        ->header('Access-Control-Allow-Origin', 'https://www.stitchspares.com, *')
+        ->header('Access-Control-Allow-Origin', '*')  //  https://www.stitchspares.com
         ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
         ->header('Access-Control-Allow-Headers', 'Content-Type, processData, ngrok-skip-browser-warning, X-CSRF-TOKEN');
     }

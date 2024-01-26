@@ -51,7 +51,7 @@ Route::middleware(['csrfcor'])->group(function () {
 Route::get('/allrequests',[RequirementController::class,'allrequests'])->name('customer.requirements');
 Route::controller(RequirementController::class)->group(function(){
     Route::get('/allrequests/{requirement}', 'showRequest')->name('view.request');
-    Route::get('/addComment', 'addComment')->name('add.comment');
+    Route::put('/addingcomment', 'addComment')->name('add.comment');
 });
 
 Route::get('/iframe', function () {

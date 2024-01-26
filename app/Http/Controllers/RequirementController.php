@@ -6,6 +6,7 @@ use App\Http\Requests\RequirementRequest;
 use App\Models\Requirement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class RequirementController extends Controller
 {
@@ -79,6 +80,22 @@ class RequirementController extends Controller
 
     public function addComment(Request $req)
     {
-        return "hi";
+        $comment = DB::table('requirements')
+        ->where('id', $req->request_id)
+        ->update(
+            [
+                'staff_comment' => $req->staff_comment
+            ]
+        );
+    if ($comment) {
+        return Redirect::back();
+        // echo "<h1>Data Updated Successfully.</h1>";
+
+    } else {
+        echo "<h1>Failed to Update Data.</h1>";
+
+    }
+        // dd($req);
+        // return "hi";
     }
 }
