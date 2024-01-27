@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Requirement extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'requested_date' => 'datetime',
+    ];
 }

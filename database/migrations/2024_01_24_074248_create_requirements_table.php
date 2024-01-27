@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('page_info');
             $table->string('staff_comment')->default('');
             $table->boolean('status')->default(0);
-            $table->timestamp('requested_date');
+            $table->timestamp('requested_date')->nullable();
         });
     }
 
