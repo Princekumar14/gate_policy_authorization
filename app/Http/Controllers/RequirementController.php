@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
+use Event;
+use App\Events\SendMail;
 class RequirementController extends Controller
 {
     protected $requiremetRepository;
@@ -20,7 +22,7 @@ class RequirementController extends Controller
     }
     public function addRequirement(RequirementRequest $req)
     {
-        return $this->requiremetRepository->addData($req);
+        return $this->requiremetRepository->addRequests($req);
         
     }
 
@@ -31,55 +33,19 @@ class RequirementController extends Controller
         return json_encode($data);
     }
 
-    public function allrequests(Request $req)
+    public function allrequests()
     {
-        $requirements = Requirement::orderBy('status', 'asc')->orderBy('id', 'desc')->get();
-        return view('customer_requirements', compact('requirements'));
+        return $this->requiremetRepository->getAllRequests();
     }
 
     public function showRequest(Requirement $requirement)
     {
-        if ($requirement->status == 0) {
-            $update_status = DB::table('requirements')
-                ->where('id', $requirement->id)
-                ->update(
-                    [
-                        'status' => 1,
-                    ]
-                );
-            if ($update_status) {
-                return view('show_customer_requirement')->with('requirement', $requirement);
-
-            } else {
-                echo "<h1>Something went Wrong.</h1>";
-
-            }
-
-        } else {
-            return view('show_customer_requirement')->with('requirement', $requirement);
-        }
+        return $this->requiremetRepository->showRequest($requirement);
     }
 
     public function addComment(Request $req, $id)
     {
 
-        $comment = DB::table('requirements')
-            ->where('id', $id)
-            ->update(
-                [
-                    'staff_comment' => preg_replace('/\s+/', ' ', $req->staff_comment),
-                ]
-            );
-
-        if ($comment) {
-            return Redirect::back();
-            // echo "<h1>Data Updated Successfully.</h1>";
-
-        } else {
-            echo "<h1>Failed to Update Data.</h1>";
-
-        }
-        // dd($req);
-        // return "hi";
+        return $this->requiremetRepository->addComment($req, $id);
     }
 }

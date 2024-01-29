@@ -26,6 +26,12 @@
                 </div>
             </div>
             <div class="col-md-6">
+                @if (session('message'))
+                    <div class="alert alert-{{ session('response') }} alert-dismissible fade show" role="alert">
+                    <strong>{{ session('message') }}</strong> 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div> 
+                @endif
                 <div class="card">
                     <h5 class="card-title ps-4 pt-4"><b>Add comment</b></h5>
                     <div class="card-body">
