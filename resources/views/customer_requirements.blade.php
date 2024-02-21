@@ -67,7 +67,7 @@
                           @endif
                         <td>
                           @if (Str::contains($requirement->page_info, 'product'))
-                              {{ 'Product Page' }}
+                              <a class="text-decoration-none" href="{{ $requirement->page_info }}">Product Page</a>
                           @else
                             {{ 'Direct Form' }}    
                           @endif

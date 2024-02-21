@@ -12,9 +12,7 @@
                     <img class="card-img-top" alt="Product image" src="{{ asset('storage/uploads/' . $requirement->requested_product_image) }}" style="height:300px;object-fit: contain;object-position: center;" />
                     <div class="card-body">
                         <h5 class="card-title"><b>Phone :</b> {{ $requirement->customer_phone }}</h5>
-                        <p class="card-text"><b>Page URL : </b>
-                            {{ $requirement->page_info }}
-                        </p>
+                        <p class="card-text"><b>Page URL : </b><a class="text-decoration-none" href="{{ $requirement->page_info }}">Product page</a></p>
                         <p class="card-text"><b>Message :</b>
                             @if ($requirement->customer_message != "")
                                 {{ $requirement->customer_message }}

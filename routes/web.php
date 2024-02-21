@@ -44,7 +44,7 @@ Route::get('/posts/delete/{post}', [App\Http\Controllers\PostController::class, 
 // ----------------- csrf token start -----------------
 Route::get('/takecsrf',[RequirementController::class,'takecsrf']);
 Route::middleware(['csrfcor'])->group(function () {
-    Route::post('/addingdata',[RequirementController::class,'addRequirement']);
+    Route::post('/addingdata',[RequirementController::class,'addRequirement'])->middleware(['throttle:3,0.5']);
 });
 // ----------------- csrf token end -----------------
 

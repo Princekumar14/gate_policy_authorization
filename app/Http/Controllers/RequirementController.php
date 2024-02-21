@@ -22,8 +22,40 @@ class RequirementController extends Controller
     }
     public function addRequirement(RequirementRequest $req)
     {
-        return $this->requiremetRepository->addRequests($req);
-        
+        $data = $this->requiremetRepository->addRequests($req);
+        return $data;
+
+    }
+
+    public function allrequests()
+    {
+        $data = $this->requiremetRepository->getAllRequests();
+        return view('customer_requirements', $data);
+    }
+
+    public function showRequest(Requirement $requirement)
+    {
+        $data = $this->requiremetRepository->showRequest($requirement);
+        if ($data['status'] == 0) {
+            if ($data['update_status']) {
+                return view('show_customer_requirement', $data);
+            } else {
+                echo "<h1>Something went wrong plz try again.</h1>";
+            }
+        } else {
+            return view('show_customer_requirement', $data);
+        }
+    }
+
+    public function addComment(Request $req, $id)
+    {
+        $data = $this->requiremetRepository->addComment($req, $id);
+        if ($data['response'] == 'success') {
+            return Redirect::route('customer.requirements')->with($data);
+
+        } else {
+            return Redirect::back()->with($data);
+        }
     }
 
     public function takecsrf(Request $req)
@@ -33,19 +65,4 @@ class RequirementController extends Controller
         return json_encode($data);
     }
 
-    public function allrequests()
-    {
-        return $this->requiremetRepository->getAllRequests();
-    }
-
-    public function showRequest(Requirement $requirement)
-    {
-        return $this->requiremetRepository->showRequest($requirement);
-    }
-
-    public function addComment(Request $req, $id)
-    {
-
-        return $this->requiremetRepository->addComment($req, $id);
-    }
 }
